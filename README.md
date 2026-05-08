@@ -62,6 +62,12 @@ The application will attempt to create the folder automatically, but for best re
 
 ---
 
+📂 PS4 Remote Path | مسیر مقصد روی PS4
+
+/data/pkg
+
+---
+
 ## 📦 Run from Source | اجرا از سورس
 
 ```bash
