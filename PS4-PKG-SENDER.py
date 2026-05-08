@@ -22,15 +22,15 @@ class FTPWorker(QThread):
 
     def run(self):
         try:
-            # اتصال اولیه
+      
             ftp = ftplib.FTP()
             ftp.connect(host=self.host, port=self.port, timeout=10)
             ftp.login(user=self.user, passwd=self.passwd)
 
-            # 🔧 جلوگیری از تایم‌اوت کانال کنترل هنگام انتقال فایل‌های بزرگ
-            ftp.sock.settimeout(300)  # 5 دقیقه انتظار
+   
+            ftp.sock.settimeout(300)  
 
-            # ورود به مسیر data/pkg (ساخت خودکار)
+           
             folders = self.remote_dir.strip("/").split("/")
             for folder in folders:
                 try:
@@ -53,7 +53,7 @@ class FTPWorker(QThread):
                 ftp.storbinary(f"STOR {filename}", f, blocksize=8192, callback=callback)
 
             ftp.quit()
-            self.finished_upload.emit(True, "آپلود با موفقیت انجام شد")
+            self.finished_upload.emit(True, "sending successfully")
 
         except Exception as e:
             self.finished_upload.emit(False, str(e))
@@ -65,7 +65,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("FTP PKG Uploader | Final")
         self.setFixedSize(550, 450)
 
-        # ---- تم دارک سبز ----
+   
         self.setStyleSheet("""
             QMainWindow { background-color: #1e1e1e; }
             QLabel { color: #e0e0e0; font-size: 12px; }
@@ -95,14 +95,14 @@ class MainWindow(QMainWindow):
         main_layout.setContentsMargins(20, 20, 20, 20)
         main_layout.setSpacing(10)
 
-        # هدر
+      
         header = QLabel("FTP PKG Uploader")
         header.setFont(QFont("Arial", 18, QFont.Weight.Bold))
         header.setStyleSheet("color: #27ae60;")
         header.setAlignment(Qt.AlignmentFlag.AlignCenter)
         main_layout.addWidget(header)
 
-        # گرید تنظیمات
+
         grid = QGridLayout()
         grid.setSpacing(10)
 
@@ -127,31 +127,31 @@ class MainWindow(QMainWindow):
 
         main_layout.addLayout(grid)
 
-        # تست اتصال
-        self.test_btn = QPushButton("⚡ تست اتصال")
+     
+        self.test_btn = QPushButton("Test Connection⚡")
         self.test_btn.clicked.connect(self.test_connection)
         self.test_status = QLabel("")
         self.test_status.setStyleSheet("color: gray;")
         main_layout.addWidget(self.test_btn)
         main_layout.addWidget(self.test_status)
 
-        # انتخاب فایل
+     
         file_layout = QGridLayout()
-        file_layout.addWidget(QLabel("فایل PKG:"), 0, 0)
+        file_layout.addWidget(QLabel("File PKG:"), 0, 0)
         self.file_edit = QLineEdit()
         self.file_edit.setReadOnly(True)
         file_layout.addWidget(self.file_edit, 0, 1)
-        self.browse_btn = QPushButton("انتخاب فایل")
+        self.browse_btn = QPushButton("Choose file")
         self.browse_btn.clicked.connect(self.browse_file)
         file_layout.addWidget(self.browse_btn, 0, 2)
         main_layout.addLayout(file_layout)
 
-        self.dest_label = QLabel("مسیر مقصد: /data/pkg")
+        self.dest_label = QLabel("Path: /data/pkg")
         self.dest_label.setStyleSheet("color: #aaa;")
         main_layout.addWidget(self.dest_label)
 
-        # آپلود و پیشرفت
-        self.upload_btn = QPushButton("🚀 آپلود به FTP")
+      
+        self.upload_btn = QPushButton("🚀Send")
         self.upload_btn.clicked.connect(self.start_upload)
         main_layout.addWidget(self.upload_btn)
 
@@ -167,14 +167,14 @@ class MainWindow(QMainWindow):
         self.worker = None
 
     def browse_file(self):
-        filename, _ = QFileDialog.getOpenFileName(self, "انتخاب فایل PKG", "",
+        filename, _ = QFileDialog.getOpenFileName(self, "Choose file PKG", "",
                                                   "PKG files (*.pkg);;All files (*.*)")
         if filename:
             self.file_edit.setText(filename)
 
     def test_connection(self):
         self.test_btn.setEnabled(False)
-        self.test_status.setText("در حال بررسی...")
+        self.test_status.setText("Checking...")
         self.test_status.setStyleSheet("color: orange;")
 
         class TestThread(QThread):
@@ -190,14 +190,14 @@ class MainWindow(QMainWindow):
                     host = self.host.strip()
                     port = int(self.port.strip() or 2121)
                     if not host:
-                        raise ValueError("Host نمیتواند خالی باشد")
+                        raise ValueError("Host cannot be empty")
                     user = self.user.strip() or "anonymous"
                     passwd = self.passwd.strip()
                     ftp = ftplib.FTP()
                     ftp.connect(host=host, port=port, timeout=5)
                     ftp.login(user=user, passwd=passwd)
                     ftp.quit()
-                    self.result.emit(True, "✓ متصل شد")
+                    self.result.emit(True, "✓ Connected")
                 except Exception as e:
                     self.result.emit(False, f"✗ {e}")
 
@@ -218,12 +218,12 @@ class MainWindow(QMainWindow):
     def start_upload(self):
         file_path = self.file_edit.text()
         if not file_path:
-            QMessageBox.warning(self, "خطا", "لطفاً فایل PKG را انتخاب کنید.")
+            QMessageBox.warning(self, "Error","Please Choose pkg file")
             return
 
         self.upload_btn.setEnabled(False)
         self.progress_bar.setValue(0)
-        self.status_label.setText("در حال آپلود...")
+        self.status_label.setText("Sending...")
         self.status_label.setStyleSheet("color: blue;")
 
         host = self.host_edit.text().strip()
@@ -238,19 +238,19 @@ class MainWindow(QMainWindow):
 
     def update_progress(self, percent):
         self.progress_bar.setValue(percent)
-        self.status_label.setText(f"آپلود: {percent}%")
+        self.status_label.setText(f"Upload: {percent}%")
 
     def upload_finished(self, success, msg):
         self.upload_btn.setEnabled(True)
         if success:
             self.progress_bar.setValue(100)
-            self.status_label.setText("✅ آپلود موفق")
+            self.status_label.setText("✅ Send Successfully")
             self.status_label.setStyleSheet("color: green;")
-            QMessageBox.information(self, "موفقیت", msg)
+            QMessageBox.information(self, "success", msg)
         else:
-            self.status_label.setText(f"❌ خطا: {msg}")
+            self.status_label.setText(f"❌ Error: {msg}")
             self.status_label.setStyleSheet("color: red;")
-            QMessageBox.critical(self, "شکست", msg)
+            QMessageBox.critical(self, "failure", msg)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
