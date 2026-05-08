@@ -68,11 +68,6 @@ The application will attempt to create the folder automatically, but for best re
 pip install -r requirements.txt
 python ftp_uploader.py
 
-📂 PS4 Remote Path | مسیر مقصد روی PS4
-
-```📂 PS4 Remote Path | مسیر مقصد روی PS4
-/data/pkg
-
 ```
 ---
 
