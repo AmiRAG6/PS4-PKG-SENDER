@@ -70,10 +70,10 @@ python ftp_uploader.py
 
 📂 PS4 Remote Path | مسیر مقصد روی PS4
 
-```
+```📂 PS4 Remote Path | مسیر مقصد روی PS4
 /data/pkg
-```
 
+```
 ---
 
 🛠️ License | مجوز
