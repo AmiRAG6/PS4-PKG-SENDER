@@ -7,7 +7,9 @@ Transfer PS4 PKG game files from PC to PlayStation 4 via FTP with real-time prog
 Send PS4 PKG game files from PC to PlayStation 4 over FTP.
 
 ارسال فایل‌های بازی PS4 از کامپیوتر به پلی‌استیشن ۴ از طریق FTP.
+## 📸 Screenshot | اسکرین‌شات
 
+![PS4-PKG-SENDER](images/pps.png)
 ---
 
 ## 📥 Download
