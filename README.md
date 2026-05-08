@@ -2,7 +2,7 @@
 Transfer PS4 PKG game files from PC to PlayStation 4 via FTP with real-time progress and dark green UI.
 # PS4-PKG-SENDER 🎮
 
-**Created by Agravik**
+**Created by Agravix**
 
 Send PS4 PKG game files from PC to PlayStation 4 over FTP.
 
@@ -67,3 +67,19 @@ The application will attempt to create the folder automatically, but for best re
 ```bash
 pip install -r requirements.txt
 python ftp_uploader.py
+
+📂 PS4 Remote Path | مسیر مقصد روی PS4
+
+```
+/data/pkg
+```
+
+---
+
+🛠️ License | مجوز
+
+MIT © Agravik
+
+---
+
+Made for the PS4 community ❤️
