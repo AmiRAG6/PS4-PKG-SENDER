@@ -46,11 +46,11 @@ The application will attempt to create the folder automatically, but for best re
 ## 🚀 Usage | روش استفاده
 
 1. Run `PS4-PKG-SENDER.exe` or `python ftp_uploader.py` / برنامه را اجرا کنید
-2. Host: `192.168.2.2` (default) / آی‌پی پیش‌فرض
+2. Host: `192.168.2.2` (default) enter ps4 ip / آی‌پی پیش‌فرض ایپی پی اس فور را وارد کنید
 3. Port: `2121` / پورت
 4. Click `⚡ Test Connection` / دکمه تست اتصال را بزنید
 5. Select `.pkg` file / فایل PKG را انتخاب کنید
-6. Click `🚀 Upload to FTP` / دکمه آپلود را بزنید
+6. Click `🚀 send` / دکمه ارسال را بزنید
 7. File goes to `/data/pkg` on PS4 / فایل در مسیر data/pkg روی PS4 قرار می‌گیرد
 
 ---
